@@ -1,5 +1,6 @@
 package botapi.command;
 
+import botapi.bot.Bot;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 public class commandParser {
     public commandContainer parse(String raw, MessageReceivedEvent event) {
 
-        String beheaded = raw.replaceFirst("-", "");
+        String beheaded = raw.replaceFirst(Bot.cmdprefix, "");
         String[] splitBeheaded = beheaded.split(" ");
         String invoke = splitBeheaded[0];
         ArrayList<String> split = new ArrayList<>();

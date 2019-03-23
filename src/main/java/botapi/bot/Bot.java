@@ -18,6 +18,7 @@ public class Bot {
 
     private JDA BotJDA;
     private JDABuilder jda;
+    public static String cmdprefix;
 
     public Bot(String token) {
         isStarted = false;
@@ -88,6 +89,10 @@ public class Bot {
 
     public void addCommand(String name, Command clas){
         commandHandler.commands.put(name, clas);
+    }
+
+    public void setPrefix(String prefix){
+        cmdprefix = prefix;
     }
 
     public JDA getBot() {
