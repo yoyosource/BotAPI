@@ -3,8 +3,15 @@ package botapi.command;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public interface Command {
-    boolean called(String[] args, MessageReceivedEvent e);
-    void action(String[] args, MessageReceivedEvent e);
-    void executed(boolean succes, MessageReceivedEvent e);
-    String help();
+
+    default boolean needsExecution(MessageReceivedEvent e, String args[]) {
+        //TODO Check if should not be executed
+
+        return false;
+    }
+
+    default void execute(MessageReceivedEvent e, String args[]) {
+        //TODO Your Execution code here
+    }
+
 }

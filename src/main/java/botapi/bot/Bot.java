@@ -1,14 +1,13 @@
 package botapi.bot;
 
 import botapi.command.Command;
-import botapi.command.commandHandler;
-import botapi.command.commandListener;
+import botapi.command.CommandHandler;
+import botapi.command.CommandListener;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import javax.security.auth.login.LoginException;
 
@@ -70,7 +69,7 @@ public class Bot {
         if (!isStarted) {
             try {
                 BotJDA = jda.buildAsync();
-                jda.addEventListener(new commandListener());
+                jda.addEventListener(new CommandListener());
                 isStarted = true;
             } catch (LoginException | IllegalArgumentException e) {
                 e.printStackTrace();
@@ -78,25 +77,32 @@ public class Bot {
         }
     }
 
-    public void addListener(Object... clas){
-        try {
-            jda.addEventListener(clas);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-
-    public void addCommand(String name, Command clas){
-        commandHandler.commands.put(name, clas);
-    }
-
-    public void setPrefix(String prefix){
-        cmdprefix = prefix;
-    }
 
     public JDA getBot() {
         return BotJDA;
+    }
+
+
+    public void addListener(Object... yourClass) {
+        if (!isStarted) {
+            try {
+                jda.addEventListener(yourClass);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void addCommand(String name, Command yourClass) {
+        if (!isStarted) {
+            CommandHandler.commands.put(name, yourClass);
+        }
+    }
+
+    public void setPrefix(String prefix) {
+        if (!isStarted) {
+            cmdprefix = prefix;
+        }
     }
 
 }
