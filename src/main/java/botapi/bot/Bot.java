@@ -1,10 +1,14 @@
 package botapi.bot;
 
+import botapi.command.Command;
+import botapi.command.commandHandler;
+import botapi.command.commandListener;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import javax.security.auth.login.LoginException;
 
@@ -65,11 +69,25 @@ public class Bot {
         if (!isStarted) {
             try {
                 BotJDA = jda.buildAsync();
+                jda.addEventListener(new commandListener());
                 isStarted = true;
             } catch (LoginException | IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void addListener(Object... clas){
+        try {
+            jda.addEventListener(clas);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void addCommand(String name, Command clas){
+        commandHandler.commands.put(name, clas);
     }
 
     public JDA getBot() {
