@@ -1,7 +1,6 @@
 package botapi.command;
 
 import botapi.bot.Bot;
-import botapi.command.commandParser;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.util.HashMap;
